@@ -1,6 +1,6 @@
 import { describe, expect, test } from 'vitest'
 import { parseDraft } from './parseDraft'
-import { toHtml } from './toHtml'
+import { buildOutputLines, toHtml } from './toHtml'
 
 const convert = (draft: string) => toHtml(parseDraft(draft))
 
@@ -58,6 +58,12 @@ describe('構成メモつきの下書き', () => {
         '最初の設定さえ決めておけば、あとは描くだけです。',
       ].join('\n'),
     )
+  })
+
+  test('出力する行は、区切りを除き空行をまとめた並びになる（プレビュー用）', () => {
+    expect(buildOutputLines(parseDraft(draft)).map((line) => line.lineNumber)).toEqual([
+      2, 3, 4, 6, 7, 8, 9, 10, 11, 13,
+    ])
   })
 
   test('各行の種類と行番号を判定する', () => {
