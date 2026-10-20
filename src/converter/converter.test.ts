@@ -91,6 +91,12 @@ describe('文末の記号', () => {
     expect(parseDraft(draft).map((line) => line.kind)).toEqual(['body', 'body', 'body', 'body', 'body'])
     expect(convert(draft)).toBe(draft)
   })
+
+  test('カギカッコで終わる行は本文として扱う', () => {
+    const draft = '「このサイズにしてよかった！」\n『アイビスペイント』'
+    expect(parseDraft(draft).map((line) => line.kind)).toEqual(['body', 'body'])
+    expect(convert(draft)).toBe(draft)
+  })
 })
 
 describe('メモ帳の書き方の揺れ', () => {
