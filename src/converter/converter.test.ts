@@ -79,6 +79,20 @@ describe('構成メモつきの下書き', () => {
   })
 })
 
+describe('文末の記号', () => {
+  test('「！」「？」で終わる行は見出しにせず本文として扱う', () => {
+    const draft = [
+      'サイズ選びで迷っていませんか？',
+      'これで完璧です！',
+      '半角でも大丈夫?',
+      '半角でも大丈夫!',
+      '本当に？！',
+    ].join('\n')
+    expect(parseDraft(draft).map((line) => line.kind)).toEqual(['body', 'body', 'body', 'body', 'body'])
+    expect(convert(draft)).toBe(draft)
+  })
+})
+
 describe('メモ帳の書き方の揺れ', () => {
   test('Windowsのメモ帳の改行（CRLF）でも同じ結果になる', () => {
     const draft = '見出し\r\n本文です。\r\n\r\nh3 小見出し\r\n本文です。'
