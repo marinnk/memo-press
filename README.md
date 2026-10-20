@@ -67,7 +67,7 @@ h3 手順1 アイビスを開く
 - React 19
 - TypeScript
 - Vite
-- Vitest（予定）
+- Vitest
 - GitHub Pages（公開予定）
 
 ## ローカルでの起動
