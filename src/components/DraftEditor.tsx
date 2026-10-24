@@ -19,14 +19,17 @@ const PLACEHOLDER = [
 interface DraftEditorProps {
   value: string
   lines: DraftLine[]
+  canUndoClear: boolean
   onChange: (value: string) => void
+  onClear: () => void
+  onUndoClear: () => void
 }
 
 /**
  * 下書きの入力欄。入力欄の裏に同じ折り返しで行を並べ、
  * 各行の横に行番号と判定ラベルを表示する。
  */
-export function DraftEditor({ value, lines, onChange }: DraftEditorProps) {
+export function DraftEditor({ value, lines, canUndoClear, onChange, onClear, onUndoClear }: DraftEditorProps) {
   const linesRef = useRef<HTMLDivElement>(null)
 
   const syncScroll = (event: UIEvent<HTMLTextAreaElement>) => {
@@ -41,6 +44,27 @@ export function DraftEditor({ value, lines, onChange }: DraftEditorProps) {
         <h2 id="draft-heading" className="panel__title">
           下書き
         </h2>
+        <div aria-live="polite">
+          {canUndoClear ? (
+            <span className="undo-notice">
+              削除しました
+              <button type="button" className="button button--soft button--small" onClick={onUndoClear}>
+                元に戻す
+              </button>
+            </span>
+          ) : (
+            value !== '' && (
+              <button type="button" className="button button--outline button--small" onClick={onClear}>
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <path d="M3 6h18" />
+                  <path d="M8 6V4h8v2" />
+                  <path d="M6 6l1 14h10l1-14" />
+                </svg>
+                下書きを削除
+              </button>
+            )
+          )}
+        </div>
       </div>
       <div className="line-legend" aria-hidden="true">
         <span>行の判定：</span>

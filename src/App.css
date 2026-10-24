@@ -2,11 +2,50 @@
 .app-header {
   display: flex;
   flex-wrap: wrap;
-  align-items: baseline;
-  gap: 4px 12px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px 12px;
   padding: 12px 24px;
   background: var(--color-surface);
   border-bottom: 1px solid var(--color-border);
+}
+
+.app-header__brand {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 12px;
+}
+
+.app-header__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 12px;
+}
+
+.app-header__actions .button {
+  margin-bottom: 0;
+}
+
+.save-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  color: var(--color-success);
+}
+
+.save-status--failed {
+  color: var(--color-danger);
+}
+
+.undo-notice {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13px;
+  color: var(--color-neutral-text);
 }
 
 .app-header__title {
@@ -109,6 +148,33 @@
 .button--success,
 .button--success:hover:not(:disabled) {
   background: var(--color-success);
+}
+
+.button--outline {
+  border: 1px solid var(--color-border-strong);
+  background: var(--color-surface);
+  font-size: 13px;
+  font-weight: 400;
+}
+
+.button--outline:hover:not(:disabled) {
+  background: var(--color-surface-muted);
+}
+
+.button--soft {
+  background: var(--color-primary-soft);
+  color: var(--color-primary);
+  font-size: 13px;
+}
+
+.button--soft:hover:not(:disabled) {
+  background: #d9e3ff;
+}
+
+.button--small {
+  min-height: 36px;
+  margin-bottom: 0;
+  padding: 0 12px;
 }
 
 .button:disabled {
