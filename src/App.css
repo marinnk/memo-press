@@ -1,184 +1,346 @@
-.counter {
-  font-size: 16px;
-  padding: 5px 10px;
-  border-radius: 5px;
-  color: var(--accent);
-  background: var(--accent-bg);
-  border: 2px solid transparent;
-  transition: border-color 0.3s;
-  margin-bottom: 24px;
-
-  &:hover {
-    border-color: var(--accent-border);
-  }
-  &:focus-visible {
-    outline: 2px solid var(--accent);
-    outline-offset: 2px;
-  }
+/* ヘッダー */
+.app-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 12px;
+  padding: 12px 24px;
+  background: var(--color-surface);
+  border-bottom: 1px solid var(--color-border);
 }
 
-.hero {
-  position: relative;
-
-  .base,
-  .framework,
-  .vite {
-    inset-inline: 0;
-    margin: 0 auto;
-  }
-
-  .base {
-    width: 170px;
-    position: relative;
-    z-index: 0;
-  }
-
-  .framework,
-  .vite {
-    position: absolute;
-  }
-
-  .framework {
-    z-index: 1;
-    top: 34px;
-    height: 28px;
-    transform: perspective(2000px) rotateZ(300deg) rotateX(44deg) rotateY(39deg)
-      scale(1.4);
-  }
-
-  .vite {
-    z-index: 0;
-    top: 107px;
-    height: 26px;
-    width: auto;
-    transform: perspective(2000px) rotateZ(300deg) rotateX(40deg) rotateY(39deg)
-      scale(0.8);
-  }
+.app-header__title {
+  font-size: 20px;
+  font-weight: 700;
 }
 
-#center {
+.app-header__tagline {
+  font-size: 13px;
+  color: var(--color-text-muted);
+}
+
+/* 3列レイアウト。狭い画面では縦に並ぶ */
+.app-main {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  padding: 20px 24px 32px;
+}
+
+.panel {
+  flex: 1 1 420px;
+  min-width: 0;
+  height: clamp(480px, calc(100vh - 112px), 1200px);
   display: flex;
   flex-direction: column;
-  gap: 25px;
-  place-content: center;
-  place-items: center;
-  flex-grow: 1;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  overflow: hidden;
+}
 
-  @media (max-width: 1024px) {
-    padding: 32px 20px 24px;
-    gap: 18px;
+.panel--narrow {
+  flex-basis: 320px;
+}
+
+/* 3列が横に並ばない幅では、チェック欄は下に回るので中身に合わせた高さにする */
+@media (max-width: 1247px) {
+  .panel--narrow {
+    height: auto;
+    min-height: 160px;
   }
 }
 
-#next-steps {
+.panel__header {
   display: flex;
-  border-top: 1px solid var(--border);
-  text-align: left;
-
-  & > div {
-    flex: 1 1 0;
-    padding: 32px;
-    @media (max-width: 1024px) {
-      padding: 24px 20px;
-    }
-  }
-
-  .icon {
-    margin-bottom: 16px;
-    width: 22px;
-    height: 22px;
-  }
-
-  @media (max-width: 1024px) {
-    flex-direction: column;
-    text-align: center;
-  }
-}
-
-#docs {
-  border-right: 1px solid var(--border);
-
-  @media (max-width: 1024px) {
-    border-right: none;
-    border-bottom: 1px solid var(--border);
-  }
-}
-
-#next-steps ul {
-  list-style: none;
-  padding: 0;
-  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
   gap: 8px;
-  margin: 32px 0 0;
-
-  .logo {
-    height: 18px;
-  }
-
-  a {
-    color: var(--text-h);
-    font-size: 16px;
-    border-radius: 6px;
-    background: var(--social-bg);
-    display: flex;
-    padding: 6px 12px;
-    align-items: center;
-    gap: 8px;
-    text-decoration: none;
-    transition: box-shadow 0.3s;
-
-    &:hover {
-      box-shadow: var(--shadow);
-    }
-    .button-icon {
-      height: 18px;
-      width: 18px;
-    }
-  }
-
-  @media (max-width: 1024px) {
-    margin-top: 20px;
-    flex-wrap: wrap;
-    justify-content: center;
-
-    li {
-      flex: 1 1 calc(50% - 8px);
-    }
-
-    a {
-      width: 100%;
-      justify-content: center;
-      box-sizing: border-box;
-    }
-  }
+  min-height: 52px;
+  padding: 8px 16px;
+  border-bottom: 1px solid var(--color-border);
 }
 
-#spacer {
-  height: 88px;
-  border-top: 1px solid var(--border);
-  @media (max-width: 1024px) {
-    height: 48px;
-  }
+.panel__header--tabs {
+  padding: 8px 12px 0;
 }
 
-.ticks {
+.panel__title {
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.panel__body {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow: auto;
+}
+
+.empty-message {
+  padding: 24px 20px;
+  color: var(--color-text-faint);
+}
+
+/* ボタン */
+.button {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 40px;
+  margin-bottom: 8px;
+  padding: 0 16px;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.button--primary {
+  background: var(--color-primary);
+  color: #ffffff;
+}
+
+.button--primary:hover:not(:disabled) {
+  background: var(--color-primary-strong);
+}
+
+.button--success,
+.button--success:hover:not(:disabled) {
+  background: var(--color-success);
+}
+
+.button:disabled {
+  background: var(--color-border-strong);
+  color: var(--color-text-muted);
+  cursor: not-allowed;
+}
+
+/* タブ */
+.tabs {
+  display: flex;
+  gap: 4px;
+}
+
+.tabs__tab {
+  min-height: 44px;
+  padding: 0 16px;
+  border: none;
+  border-bottom: 3px solid transparent;
+  background: none;
+  font-size: 14px;
+  color: var(--color-text-muted);
+  cursor: pointer;
+}
+
+.tabs__tab[aria-selected='true'] {
+  border-bottom-color: var(--color-primary);
+  color: var(--color-primary);
+  font-weight: 700;
+}
+
+/* 行の判定ラベル */
+.line-legend {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border-bottom: 1px solid var(--color-border-subtle);
+  background: var(--color-surface-muted);
+  font-size: 12px;
+  color: var(--color-text-muted);
+}
+
+.line-label {
+  display: inline-block;
+  padding: 0 6px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  font-size: 11px;
+  line-height: 20px;
+  font-weight: 500;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.line-label--h2 {
+  background: var(--color-primary-soft);
+  color: var(--color-primary);
+}
+
+.line-label--h3 {
+  background: var(--color-h3-soft);
+  color: var(--color-h3-text);
+}
+
+.line-label--delete {
+  background: var(--color-neutral-soft);
+  color: var(--color-neutral-text);
+}
+
+.line-label--body {
+  border-color: var(--color-border);
+  color: var(--color-neutral-text);
+}
+
+/*
+ * 下書きの入力欄。
+ * 入力欄（textarea）の裏に同じ幅・同じ折り返しで行を並べ、左の余白に行番号とラベルを出す。
+ * 入力欄と裏の行で、フォント・余白・折り返しの設定を必ずそろえること。
+ */
+.draft-editor {
+  --editor-pad-y: 12px;
+  --editor-pad-x: 12px;
+  --editor-gutter: 102px;
+  --editor-line-height: 1.8;
+
   position: relative;
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.draft-editor__backdrop,
+.draft-editor__input {
+  position: absolute;
+  inset: 0;
+  padding: var(--editor-pad-y) 16px var(--editor-pad-y) calc(var(--editor-pad-x) + var(--editor-gutter));
+  font-family: var(--font-sans);
+  font-size: 14px;
+  line-height: var(--editor-line-height);
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  tab-size: 4;
+  scrollbar-gutter: stable;
+}
+
+.draft-editor__backdrop {
+  overflow: hidden;
+  padding-left: var(--editor-pad-x);
+}
+
+.draft-editor__input {
   width: 100%;
+  height: 100%;
+  margin: 0;
+  border: none;
+  outline: none;
+  resize: none;
+  overflow-y: auto;
+  background: transparent;
+}
 
-  &::before,
-  &::after {
-    content: '';
-    position: absolute;
-    top: -4.5px;
-    border: 5px solid transparent;
-  }
+.draft-editor__input:focus-visible {
+  box-shadow: inset 0 0 0 2px var(--color-primary);
+}
 
-  &::before {
-    left: 0;
-    border-left-color: var(--border);
-  }
-  &::after {
-    right: 0;
-    border-right-color: var(--border);
-  }
+.draft-editor__input::placeholder {
+  color: var(--color-text-faint);
+}
+
+.draft-line {
+  display: grid;
+  grid-template-columns: 32px 52px minmax(0, 1fr);
+  column-gap: 9px;
+  align-items: start;
+}
+
+.draft-line > .line-label {
+  margin-top: 2px;
+}
+
+.draft-line__number {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  line-height: calc(14px * var(--editor-line-height));
+  text-align: right;
+  color: var(--color-text-faint);
+}
+
+.draft-line__text {
+  min-height: calc(14px * var(--editor-line-height));
+  color: transparent;
+}
+
+.draft-line--delete .draft-line__text {
+  text-decoration: line-through;
+  text-decoration-color: var(--color-text-faint);
+}
+
+/* プレビュー */
+.preview {
+  padding: 20px 24px 32px;
+  font-size: 15px;
+  line-height: 1.9;
+}
+
+.preview__h2,
+.preview__h3 {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 8px 0 12px;
+  font-weight: 700;
+}
+
+.preview__h2 {
+  padding: 10px 14px;
+  border-radius: 4px;
+  background: var(--color-primary);
+  color: #ffffff;
+  font-size: 17px;
+}
+
+.preview__h3 {
+  padding: 4px 0 6px 12px;
+  border-left: 5px solid var(--color-h3);
+  border-bottom: 1px solid #f1d9b5;
+  font-size: 16px;
+}
+
+.preview__tag {
+  flex: 0 0 auto;
+  padding: 0 6px;
+  border-radius: 3px;
+  font-size: 11px;
+  font-weight: 500;
+  line-height: 1.6;
+}
+
+.preview__h2 .preview__tag {
+  background: #ffffff;
+  color: var(--color-primary);
+}
+
+.preview__h3 .preview__tag {
+  background: var(--color-h3-soft);
+  color: var(--color-h3-text);
+}
+
+.preview__body {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.preview__gap {
+  height: 16px;
+}
+
+/* HTML表示 */
+.html-view {
+  margin: 0;
+  min-height: 100%;
+  padding: 16px 20px;
+  background: var(--color-surface-muted);
+  font-family: var(--font-mono), var(--font-sans);
+  font-size: 13px;
+  line-height: 1.8;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.html-view__tag {
+  color: var(--color-primary);
 }
